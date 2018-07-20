@@ -1,0 +1,17 @@
+{
+  "name": "gearscore_bot",
+  "version": "1.0.0",
+  "description": "gearscore bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jacky Xiong",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^11.3.2",
+    "fs": "0.0.1-security",
+    "mongoose": "^5.2.4",
+    "path": "^0.12.7"
+  }
+}
