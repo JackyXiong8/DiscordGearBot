@@ -17,7 +17,8 @@ var StatSchema = new mongoose.Schema({
     awakening: { type: Number },
     dp: { type: Number },
     axe: { type: String },
-    name: { type: String }
+    name: { type: String },
+    image: { data: Buffer, contentType: String}
 });
 
 mongoose.model('GearScore', StatSchema)
@@ -49,12 +50,13 @@ bot.on('message', message => {
     let cmd = messageArray[0];
     let args = messageArray.slice(1);
 
+
     if (cmd.charAt(0) === prefix) {
 
         console.log(args)
 
         if (cmd === prefix + 'help') {
-            message.channel.send("!stats set family (family name), !stats set AP (ap), !stats set DP (dp), !stats set class (main class), !stats set level (level).  !stats set Awakening (awakening ap),  !stats set Trina_Axe (axe level)")
+            message.channel.send("!gear of (@person) to check their gear,    !stats set family (family name),    !stats set AP (ap),    !stats set DP (dp),    !stats set class (main class),    !stats set level (level).     !stats set Awakening (awakening ap),     !stats set Trina_Axe (axe level)")
         }
 
         //Set commands
@@ -69,6 +71,11 @@ bot.on('message', message => {
                     if (err) {
                         return message.channel.send('Somethings wrong, tell Jacky')
                     } else {
+                        if (message.guild.members.get(bot.user.id).hasPermission("MANAGE_NICKNAMES") && message.guild.members.get(bot.user.id).hasPermission("CHANGE_NICKNAME")) {
+                            message.guild.members.get(message.author.id).setNickname(args[2]);
+                        } else {
+                            message.channel.sendMessage("I dont have the permissons to change your nickname in this server. Should I get permission to do so, simply set your family name again to have your nickname changed to it. Or do it yourself. I don't care.");
+                        }
                         return message.channel.send('Family name set to ' + args[2])
                     }
                 })
@@ -167,15 +174,26 @@ bot.on('message', message => {
 
             }
 
-
-
+            if(args[1] === 'picture'){
+                if(message.attachments.size > 0){
+                    console.log('picture found')
+                    message.channel.send('Found picture')
+                    console.log(message.attachments['470043013717032967'])
+                } else {
+                    message.channel.send('Where the fucks your picture dawg.')
+                }
+                
+            }
 
         }
 
         if (cmd === prefix + 'gear') {
 
+            //Looking up others gear
+
             if (args[0] === 'of') {
-                console.log('!!!!!!!', message.mentions.members.first()['user']['id'])
+
+                console.log(message.mentions.members.first())
 
                 var userId = message.mentions.members.first()['user']['id']
 
@@ -183,16 +201,19 @@ bot.on('message', message => {
                     if (err) {
                         console.log('Something went wrong, tell Jacky')
                     } else {
-                        return message.channel.send(JSON.stringify(data))
+                        return message.channel.send('Family name : ' + JSON.stringify(data[0]['family']) + '   AP : ' + JSON.stringify(data[0]['ap']) + '   DP : ' + JSON.stringify(data[0]['dp']) + '   Awakening AP : ' + JSON.stringify(data[0]['awakening']) + '   Class : ' + JSON.stringify(data[0]['class']) + '   Axe : ' + JSON.stringify(data[0]['axe']))
                     }
                 })
+
+                //showing your gear
+
             } else {
                 Stat.find({ id: message.author.id }, function (err, data) {
                     if (err) {
                         return message.channel.send('Cant find it or something went wrong. Tell Jacky')
                     } else {
-                        console.log(JSON.stringify(data[0]['ap']))
-                        return message.channel.send(JSON.stringify(data))
+                        console.log(JSON.stringify(data[0]))
+                        return message.channel.send('Family name : ' + JSON.stringify(data[0]['family']) + '   AP : ' + JSON.stringify(data[0]['ap']) + '   DP : ' + JSON.stringify(data[0]['dp']) + '   Awakening AP : ' + JSON.stringify(data[0]['awakening']) + '   Class : ' + JSON.stringify(data[0]['class']) + '   Axe : ' + JSON.stringify(data[0]['axe']))
                     }
                 })
             }
@@ -215,19 +236,3 @@ bot.on('disconnect', function () {
 bot.on('disconnect', function () {
     bot.login(botconfig.token)
 })
-
-
-
-
-// function findUser(id){
-
-//     Stat.count({id : id}, function(err, count) {
-//         if(count > 0){
-//             console.log('Found user')
-//             return true
-//         } else {
-//             console.log('User not found')
-//             return false
-//         }
-//     })
-// }
