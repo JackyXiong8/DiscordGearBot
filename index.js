@@ -34,7 +34,6 @@ const bot = new Discord.Client({ autoReconnect: true });
 
 
 bot.on('ready', () => {
-    bot.user.setActivity('Watching porn')
     console.log('ready!')
 });
 
