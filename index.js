@@ -164,6 +164,14 @@ bot.on('message', message => {
                 }
             })
 
+            var filtering = new Promise(function(roster, reject){
+                roster('FROM THE RESOLVE')
+            })
+            
+            filtering.then(function(value){
+                console.log(value)
+            })
+
             // for(var i = 0; i < humans.length; i++){
             //     console.log(humans[i])
 
@@ -185,7 +193,6 @@ bot.on('message', message => {
 
             // )}
 
-            humans.forEach()
         }
 
 
@@ -206,7 +213,7 @@ bot.on('message', message => {
                         if (data.length) {
                             message.channel.send({
                                 embed: {
-                                    color: 3447003,
+                                    color: 0x33FF00,
                                     author: {
                                         name: bot.user.username,
                                         icon_url: bot.user.avatarURL
@@ -252,7 +259,7 @@ bot.on('message', message => {
                         if (data.length) {
                             message.channel.send({
                                 embed: {
-                                    color: 3447003,
+                                    color: 0x33FF00,
                                     author: {
                                         name: bot.user.username,
                                         icon_url: bot.user.avatarURL
@@ -289,10 +296,10 @@ bot.on('message', message => {
             }
 
         }
+        return message.delete()
 
     }
 
-    return message.delete()
 });
 
 bot.login(botconfig.token)
