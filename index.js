@@ -1,5 +1,9 @@
 var mongoose = require('mongoose')
 
+var express = require('express')
+
+var app = express()
+
 mongoose.connect('mongodb://localhost/gear')
 
 mongoose.Promise = global.Promise
@@ -410,3 +414,15 @@ function insertionSort(array){
 }
 
 var port = process.env.PORT || 5000;
+
+
+app.set('port', (process.env.PORT || 5000))
+app.use(express.static(__dirname + '/public'))
+
+app.get('/', function(request, response){
+    response.send('????')
+})
+
+app.listen(app.get('port'), function() {
+    console.log('node app is running at localhost:' + app.get('port'))
+})
