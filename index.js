@@ -18,7 +18,8 @@ var StatSchema = new mongoose.Schema({
     dp: { type: Number },
     axe: { type: String },
     name: { type: String },
-    image: { data: Buffer, contentType: String }
+    image: { data: Buffer, contentType: String },
+    sailing: {type: String}
 });
 
 mongoose.model('GearScore', StatSchema)
@@ -66,36 +67,57 @@ bot.on('message', message => {
                         if (message.guild.members.get(bot.user.id).hasPermission("MANAGE_NICKNAMES") && message.guild.members.get(bot.user.id).hasPermission("CHANGE_NICKNAME")) {
                             message.guild.members.get(message.author.id).setNickname(args[2]);
                         } else {
-                            message.channel.sendMessage("I dont have the permissons to change your nickname in this server. Should I get permission to do so, simply set your family name again to have your nickname changed to it. Or do it yourself. I don't care.");
+                            message.channel.send({embed:{
+                                color: 0x33FF00,
+                                description: "I dont have the permissons to change your nickname in this server. Should I get permission to do so, simply set your family name again to have your nickname changed to it."
+                            }})
                         }
-                        message.channel.send('Family name set to ' + args[2])
+                        message.channel.send({embed:{
+                            color: 0x33FF00,
+                            description: 'Family name set to ' + args[2]
+                        }})
                     }
                 })
             }
             if (args[1] === 'AP') {
                 Stat.findOneAndUpdate({ id: message.author.id }, { ap: args[2] }, { upsert: true }, function (err, data) {
                     if (err) {
-                        message.channel.send('Somethings wrong, tell Jacky')
-                    } else {
-                        message.channel.send('AP set to ' + args[2])
+                        message.channel.send({embed:{
+                            color: 0x33FF00,
+                            description: 'Something went wrong, tell Jacky'
+                        }})                    } else {
+                        message.channel.send({embed:{
+                            color: 0x33FF00,
+                            description: 'Ap is set to ' + args[2]
+                        }})
                     }
                 })
             }
             if (args[1] === 'name') {
                 Stat.findOneAndUpdate({ id: message.author.id }, { name: args[2] }, { upsert: true }, function (err, data) {
                     if (err) {
-                        message.channel.send('Somethings wrong, tell Jacky')
-                    } else {
-                        message.channel.send('Name set to ' + args[2])
+                        message.channel.send({embed:{
+                            color: 0x33FF00,
+                            description: 'Something went wrong, tell Jacky'
+                        }})                    } else {
+                        message.channel.send({embed:{
+                            color: 0x33FF00,
+                            description: 'Your name is set to  ' + args[2]
+                        }})
                     }
                 })
             }
             if (args[1] === 'class') {
                 Stat.findOneAndUpdate({ id: message.author.id }, { class: args[2] }, { upsert: true }, function (err, data) {
                     if (err) {
-                        message.channel.send('Somethings wrong, tell Jacky')
-                    } else {
-                        message.channel.send('Class set to ' + args[2])
+                        message.channel.send({embed:{
+                            color: 0x33FF00,
+                            description: 'Something went wrong, tell Jacky'
+                        }})                    } else {
+                        message.channel.send({embed:{
+                            color: 0x33FF00,
+                            description: 'Your class is set to ' + args[2]
+                        }})
                     }
                 })
 
@@ -103,36 +125,72 @@ bot.on('message', message => {
             if (args[1] === 'level') {
                 Stat.findOneAndUpdate({ id: message.author.id }, { level: args[2] }, { upsert: true }, function (err, data) {
                     if (err) {
-                        message.channel.send('Somethings wrong, tell Jacky')
-                    } else {
-                        message.channel.send('Level set to ' + args[2])
+                        message.channel.send({embed:{
+                            color: 0x33FF00,
+                            description: 'Something went wrong, tell Jacky'
+                        }})                    } else {
+                        message.channel.send({embed:{
+                            color: 0x33FF00,
+                            description: 'Your level is set to ' + args[2]
+                        }})
                     }
                 })
             }
             if (args[1] === 'Awakening') {
                 Stat.findOneAndUpdate({ id: message.author.id }, { awakening: args[2] }, { upsert: true }, function (err, data) {
                     if (err) {
-                        message.channel.send('Somethings wrong, tell Jacky')
-                    } else {
-                        message.channel.send('Awakening AP set to ' + args[2])
+                        message.channel.send({embed:{
+                            color: 0x33FF00,
+                            description: 'Something went wrong, tell Jacky'
+                        }})                    } else {
+                        message.channel.send({embed:{
+                            color: 0x33FF00,
+                            description: 'Awakening AP set to ' + args[2]
+                        }})
                     }
                 })
             }
             if (args[1] === 'DP') {
                 Stat.findOneAndUpdate({ id: message.author.id }, { dp: args[2] }, { upsert: true }, function (err, data) {
                     if (err) {
-                        message.channel.send('Somethings wrong, tell Jacky')
-                    } else {
-                        message.channel.send('DP set to ' + args[2])
+                        message.channel.send({embed:{
+                            color: 0x33FF00,
+                            description: 'Something went wrong, tell Jacky'
+                        }})                    } else {
+                        message.channel.send({embed:{
+                            color: 0x33FF00,
+                            description: 'DP set to ' + args[2]
+                        }})
                     }
                 })
             }
             if (args[1] === 'Trina_Axe') {
                 Stat.findOneAndUpdate({ id: message.author.id }, { axe: args[2] }, { upsert: true }, function (err, data) {
                     if (err) {
-                        message.channel.send('Somethings wrong, tell Jacky')
+                        message.channel.send({embed:{
+                            color: 0x33FF00,
+                            description: 'Something went wrong, tell Jacky'
+                        }})
                     } else {
-                        message.channel.send('Trina Axe set to ' + args[2])
+                        message.channel.send({embed:{
+                            color: 0x33FF00,
+                            description: 'Trina Axe set to ' + args[2]
+                        }})
+                    }
+                })
+            }
+            if(args[1] === 'Sailing'){
+                Stat.findOneAndUpdate({ id: message.author.id }, { sailing: args[2] }, { upsert: true }, function (err, data) {
+                    if (err) {
+                        message.channel.send({embed:{
+                            color: 0x33FF00,
+                            description: 'Something went wrong, tell Jacky'
+                        }})
+                    } else {
+                        message.channel.send({embed:{
+                            color: 0x33FF00,
+                            description: 'Sailing level set to ' + args[2]
+                        }})
                     }
                 })
             }
@@ -151,7 +209,7 @@ bot.on('message', message => {
         /////RANKING/////
 
 
-        if (cmd === prefix + 'ranking') {
+        if (cmd === prefix + 'gsranking') {
             var humans = []
             var gearedPeople = []
 
@@ -177,21 +235,30 @@ bot.on('message', message => {
                                 gearedPeople.push({ id: humans[i], name: data[0]['family'], gear: data[0]['ap'] + data[0]['dp'], ap: data[0]['ap'], awakening: data[0]['awakening'], dp: data[0]['dp'] })
                             }
                         }
-                        console.log('calling function again')
                         filter(i + 1)
                     })
                 } else {
-                    console.log('finished filtering')
-                    for (var x = 0; x < gearedPeople.length; x++){
-                        console.log(gearedPeople[x]['gear'], x)
+                    insertionSort(gearedPeople)
+                    console.log(gearedPeople)
+                    sortedPeople = []
+                    for(var o = gearedPeople.length - 1; o >= 0; o--){
+                        sortedPeople.push(gearedPeople[o])
                     }
 
+                    var rankedMessage = ''
+    
+                    for(var x = 0; x < sortedPeople.length; x++){
+                        rankedMessage += (x + 1 + ' ' + sortedPeople[x]['name'] + ' - ' + sortedPeople[x]['gear'] +' \n ')
+                    }
+                    message.channel.send({embed: {
+                        color : 0x33FF00,
+                        title: 'Gear Score Ranking',
+                        description: rankedMessage
+                    }})
                 }
             }
 
-
             filter(0)
-
 
         }
 
@@ -203,8 +270,10 @@ bot.on('message', message => {
                 var userId = message.mentions.members.first()['user']['id']
                 Stat.find({ id: userId }, function (err, data) {
                     if (err) {
-                        console.log('Something went wrong, tell Jacky')
-                    } else {
+                        message.channel.send({embed:{
+                            color: 0x33FF00,
+                            description: 'Something went wrong, tell Jacky'
+                        }})                    } else {
                         if (data.length) {
                             message.channel.send({
                                 embed: {
@@ -220,25 +289,32 @@ bot.on('message', message => {
                                     },
                                     {
                                         name: 'AP',
-                                        value: JSON.stringify(data[0]['ap'])
+                                        value: data[0]['ap']
                                     },
                                     {
                                         name: 'DP',
-                                        value: JSON.stringify(data[0]['dp'])
+                                        value: data[0]['dp']
                                     },
                                     {
                                         name: 'Awakening AP',
-                                        value: JSON.stringify(data[0]['awakening'])
+                                        value: data[0]['awakening']
                                     },
                                     {
                                         name: 'Trina Axe',
-                                        value: JSON.stringify(data[0]['axe'])
+                                        value: data[0]['axe']
+                                    },
+                                    {
+                                        name: 'Sailing level',
+                                        value: data[0]['sailing']
                                     }
                                     ]
                                 }
                             })
                         } else {
-                            message.channel.send('This user has not entered any information yet.')
+                            message.channel.send({embed:{
+                                color: 0x33FF00,
+                                description: 'This user has not entered any information yet.'
+                            }})
                         }
                     }
                 })
@@ -248,8 +324,10 @@ bot.on('message', message => {
             } else {
                 Stat.find({ id: message.author.id }, function (err, data) {
                     if (err) {
-                        message.channel.send('Cant find it or something went wrong. Tell Jacky')
-                    } else {
+                        message.channel.send({embed:{
+                            color: 0x33FF00,
+                            description: 'Something went wrong, tell Jacky'
+                        }})                    } else {
                         if (data.length) {
                             message.channel.send({
                                 embed: {
@@ -265,25 +343,32 @@ bot.on('message', message => {
                                     },
                                     {
                                         name: 'AP',
-                                        value: JSON.stringify(data[0]['ap'])
+                                        value: data[0]['ap']
                                     },
                                     {
                                         name: 'DP',
-                                        value: JSON.stringify(data[0]['dp'])
+                                        value: data[0]['dp']
                                     },
                                     {
                                         name: 'Awakening AP',
-                                        value: JSON.stringify(data[0]['awakening'])
+                                        value: data[0]['awakening']
                                     },
                                     {
                                         name: 'Trina Axe',
-                                        value: JSON.stringify(data[0]['axe'])
+                                        value: data[0]['axe']
+                                    },
+                                    {
+                                        name: 'Sailing level',
+                                        value: data[0]['sailing']
                                     }
                                     ]
                                 }
                             })
                         } else {
-                            message.channel.send('You have not entered any information. Please refer to !help for more info.')
+                            mmessage.channel.send({embed:{
+                                color: 0x33FF00,
+                                description: 'You habe not entered any information yet.'
+                            }})
                         }
                     }
                 })
@@ -302,3 +387,35 @@ bot.on('disconnect', function () {
 bot.on('disconnect', function () {
     bot.login(botconfig.token)
 })
+
+/////SORT FUNCTION/////
+
+function insertionSort(array){
+    for(var i = 0; i < array.length; i++){
+        var temp = array[i]
+        var j = i-1;
+        while(j >= 0 && array[j]['gear'] > temp['gear']){
+            array[j + 1] = array[j]
+            j--
+        }
+        array[j + 1] = temp
+    }
+    // return showRanking(array)
+    flippedArray = []
+    for(var t = array.length - 1; t >= 0; t--){
+        flippedArray.push(array[t])
+        console.log(t, array[t])
+    }
+    return flippedArray
+}
+
+/////DISPLAY RANKINGS/////
+
+// function showRanking(array){
+//     flippedArray = []
+//     for(var t = array.length - 1; t >= 0; t--){
+//         flippedArray.push(array[t])
+//         console.log(t, array[t])
+//     }
+//     return flippedArray
+// }
