@@ -48,18 +48,20 @@ bot.on('message', message => {
     let args = messageArray.slice(1);
     if (cmd.charAt(0) === prefix) {
 
-        console.log(args)
+
+        console.log(args, 'sent by', message.author.username)
 
         if (cmd === prefix + 'help') {
-            message.channel.send("!gear of (@person) to check their gear,    !stats set family (family name),    !stats set AP (ap),    !stats set DP (dp),    !stats set class (main class),    !stats set level (level).     !stats set Awakening (awakening ap),     !stats set Trina_Axe (axe level)")
+            message.channel.send({embed : {
+                color :000000, 
+                title: 'Commands',
+                description: "`!gsranking` for rankings \n`!stats set AP <AP HERE>` to set AP \n`!stats set DP <DP HERE>` to set DP \n`!stats set Awakening <AP HERE>` to set Awakening AP \n`!stats set name <NAME HERE>` to set character name \n`!stats set family <FAMILY NAME HERE>` to set family name \n`!stats set level <LEVEL HERE>` to set level \n`!stats set axe <AXE LEVEL HERE>` to set Trina Axe level \n`!stats set sailing <SAILING LEVEL HERE>` to set sailing level" 
+            }})
         }
 
         //Set commands
         if ((cmd === prefix + 'stats') && (args[0] === 'set')) {
             if (args[1] === 'family') {
-
-                console.log(message.channel.id)
-
                 Stat.findOneAndUpdate({ id: message.author.id }, { family: args[2] }, { upsert: true }, function (err, data) {
                     if (err) {
                         message.channel.send('Somethings wrong, tell Jacky')
@@ -68,12 +70,12 @@ bot.on('message', message => {
                             message.guild.members.get(message.author.id).setNickname(args[2]);
                         } else {
                             message.channel.send({embed:{
-                                color: 0x33FF00,
+                                color: 000000,
                                 description: "I dont have the permissons to change your nickname in this server. Should I get permission to do so, simply set your family name again to have your nickname changed to it."
                             }})
                         }
                         message.channel.send({embed:{
-                            color: 0x33FF00,
+                            color: 000000,
                             description: 'Family name set to ' + args[2]
                         }})
                     }
@@ -83,11 +85,11 @@ bot.on('message', message => {
                 Stat.findOneAndUpdate({ id: message.author.id }, { ap: args[2] }, { upsert: true }, function (err, data) {
                     if (err) {
                         message.channel.send({embed:{
-                            color: 0x33FF00,
+                            color: 000000,
                             description: 'Something went wrong, tell Jacky'
                         }})                    } else {
                         message.channel.send({embed:{
-                            color: 0x33FF00,
+                            color: 000000,
                             description: 'Ap is set to ' + args[2]
                         }})
                     }
@@ -97,11 +99,11 @@ bot.on('message', message => {
                 Stat.findOneAndUpdate({ id: message.author.id }, { name: args[2] }, { upsert: true }, function (err, data) {
                     if (err) {
                         message.channel.send({embed:{
-                            color: 0x33FF00,
+                            color: 000000,
                             description: 'Something went wrong, tell Jacky'
                         }})                    } else {
                         message.channel.send({embed:{
-                            color: 0x33FF00,
+                            color: 000000,
                             description: 'Your name is set to  ' + args[2]
                         }})
                     }
@@ -111,11 +113,11 @@ bot.on('message', message => {
                 Stat.findOneAndUpdate({ id: message.author.id }, { class: args[2] }, { upsert: true }, function (err, data) {
                     if (err) {
                         message.channel.send({embed:{
-                            color: 0x33FF00,
+                            color: 000000,
                             description: 'Something went wrong, tell Jacky'
                         }})                    } else {
                         message.channel.send({embed:{
-                            color: 0x33FF00,
+                            color: 000000,
                             description: 'Your class is set to ' + args[2]
                         }})
                     }
@@ -126,11 +128,11 @@ bot.on('message', message => {
                 Stat.findOneAndUpdate({ id: message.author.id }, { level: args[2] }, { upsert: true }, function (err, data) {
                     if (err) {
                         message.channel.send({embed:{
-                            color: 0x33FF00,
+                            color: 000000,
                             description: 'Something went wrong, tell Jacky'
                         }})                    } else {
                         message.channel.send({embed:{
-                            color: 0x33FF00,
+                            color: 000000,
                             description: 'Your level is set to ' + args[2]
                         }})
                     }
@@ -140,11 +142,11 @@ bot.on('message', message => {
                 Stat.findOneAndUpdate({ id: message.author.id }, { awakening: args[2] }, { upsert: true }, function (err, data) {
                     if (err) {
                         message.channel.send({embed:{
-                            color: 0x33FF00,
+                            color: 000000,
                             description: 'Something went wrong, tell Jacky'
                         }})                    } else {
                         message.channel.send({embed:{
-                            color: 0x33FF00,
+                            color: 000000,
                             description: 'Awakening AP set to ' + args[2]
                         }})
                     }
@@ -154,11 +156,11 @@ bot.on('message', message => {
                 Stat.findOneAndUpdate({ id: message.author.id }, { dp: args[2] }, { upsert: true }, function (err, data) {
                     if (err) {
                         message.channel.send({embed:{
-                            color: 0x33FF00,
+                            color: 000000,
                             description: 'Something went wrong, tell Jacky'
                         }})                    } else {
                         message.channel.send({embed:{
-                            color: 0x33FF00,
+                            color: 000000,
                             description: 'DP set to ' + args[2]
                         }})
                     }
@@ -168,12 +170,12 @@ bot.on('message', message => {
                 Stat.findOneAndUpdate({ id: message.author.id }, { axe: args[2] }, { upsert: true }, function (err, data) {
                     if (err) {
                         message.channel.send({embed:{
-                            color: 0x33FF00,
+                            color: 000000,
                             description: 'Something went wrong, tell Jacky'
                         }})
                     } else {
                         message.channel.send({embed:{
-                            color: 0x33FF00,
+                            color: 000000,
                             description: 'Trina Axe set to ' + args[2]
                         }})
                     }
@@ -183,12 +185,12 @@ bot.on('message', message => {
                 Stat.findOneAndUpdate({ id: message.author.id }, { sailing: args[2] }, { upsert: true }, function (err, data) {
                     if (err) {
                         message.channel.send({embed:{
-                            color: 0x33FF00,
+                            color: 000000,
                             description: 'Something went wrong, tell Jacky'
                         }})
                     } else {
                         message.channel.send({embed:{
-                            color: 0x33FF00,
+                            color: 000000,
                             description: 'Sailing level set to ' + args[2]
                         }})
                     }
@@ -239,7 +241,6 @@ bot.on('message', message => {
                     })
                 } else {
                     insertionSort(gearedPeople)
-                    console.log(gearedPeople)
                     sortedPeople = []
                     for(var o = gearedPeople.length - 1; o >= 0; o--){
                         sortedPeople.push(gearedPeople[o])
@@ -251,7 +252,7 @@ bot.on('message', message => {
                         rankedMessage += (x + 1 + ' ' + sortedPeople[x]['name'] + ' - ' + sortedPeople[x]['gear'] +' \n ')
                     }
                     message.channel.send({embed: {
-                        color : 0x33FF00,
+                        color : 000000,
                         title: 'Gear Score Ranking',
                         description: rankedMessage
                     }})
@@ -271,13 +272,13 @@ bot.on('message', message => {
                 Stat.find({ id: userId }, function (err, data) {
                     if (err) {
                         message.channel.send({embed:{
-                            color: 0x33FF00,
+                            color: 000000,
                             description: 'Something went wrong, tell Jacky'
                         }})                    } else {
                         if (data.length) {
                             message.channel.send({
                                 embed: {
-                                    color: 0x33FF00,
+                                    color: 000000,
                                     author: {
                                         name: bot.user.username,
                                         icon_url: bot.user.avatarURL
@@ -312,7 +313,7 @@ bot.on('message', message => {
                             })
                         } else {
                             message.channel.send({embed:{
-                                color: 0x33FF00,
+                                color: 000000,
                                 description: 'This user has not entered any information yet.'
                             }})
                         }
@@ -325,13 +326,13 @@ bot.on('message', message => {
                 Stat.find({ id: message.author.id }, function (err, data) {
                     if (err) {
                         message.channel.send({embed:{
-                            color: 0x33FF00,
+                            color: 000000,
                             description: 'Something went wrong, tell Jacky'
                         }})                    } else {
                         if (data.length) {
                             message.channel.send({
                                 embed: {
-                                    color: 0x33FF00,
+                                    color: 000000,
                                     author: {
                                         name: bot.user.username,
                                         icon_url: bot.user.avatarURL
@@ -365,15 +366,15 @@ bot.on('message', message => {
                                 }
                             })
                         } else {
-                            mmessage.channel.send({embed:{
-                                color: 0x33FF00,
+                            message.channel.send({embed:{
+                                color: 000000,
                                 description: 'You habe not entered any information yet.'
                             }})
                         }
                     }
                 })
             }
-        }
+        } 
         return message.delete()
     }
 });
@@ -404,18 +405,6 @@ function insertionSort(array){
     flippedArray = []
     for(var t = array.length - 1; t >= 0; t--){
         flippedArray.push(array[t])
-        console.log(t, array[t])
     }
     return flippedArray
 }
-
-/////DISPLAY RANKINGS/////
-
-// function showRanking(array){
-//     flippedArray = []
-//     for(var t = array.length - 1; t >= 0; t--){
-//         flippedArray.push(array[t])
-//         console.log(t, array[t])
-//     }
-//     return flippedArray
-// }
