@@ -1,3 +1,5 @@
+import { Server } from 'http';
+
 var mongoose = require('mongoose')
 
 mongoose.connect('mongodb://localhost/gear')
