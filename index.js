@@ -50,12 +50,12 @@ bot.on('message', message => {
     let messageArray = message.content.split(" ");
     let cmd = messageArray[0];
     let args = messageArray.slice(1);
-    if (cmd.charAt(0) === prefix) {
+ 
 
 
         console.log(args, 'sent by', message.author.username)
 
-        if (cmd === prefix + 'help') {
+        if (message.content === '!help') {
             message.channel.send({
                 embed: {
                     color: 000000,
@@ -434,7 +434,7 @@ bot.on('message', message => {
                     }
                 })
             }
-        }
+        
         return message.delete()
     }
 });
